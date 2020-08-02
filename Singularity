@@ -1,12 +1,21 @@
-Bootstrap: docker
-From: makaho/hisat2-zstd
+Bootstrap:docker  
+From:ubuntu:16.04
 
 %labels
-MAINTAINER arnstrm@gmail.com
-APPLICATION hisat2
+MAINTAINER Vanessasaur
+SPECIES Dinosaur
 
-%help
-This container provides hisat2
+%environment
+RAWR_BASE=/code
+export RAWR_BASE
 
 %runscript
-exec hisat2 "$@"
+echo "This gets run when you run the image!" 
+exec /bin/bash /code/rawr.sh "$@"  
+
+%post  
+echo "This section happens once after bootstrap to build the image."  
+mkdir -p /code  
+apt-get install vim  
+echo "RoooAAAAR" >> /code/rawr.sh
+chmod u+x /code/rawr.sh  
